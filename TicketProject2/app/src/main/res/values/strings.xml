@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SIGBE</string>
+    <string name="name">Nombre</string>
+    <string name="text2">Email</string>
+    <string name="text3">Contraseña</string>
+    <string name="descripImage">Descripcion</string>
+    <string name="btEditar">Editar</string>
+    <string name="btBuscar">Iniciar Sesion</string>
+    <string name="registrarse_iniciar_sesion">Registrarse</string>
+    <string name="textview">Bienvenido</string>
+    <string name="textview2"></string>
+
+</resources>
