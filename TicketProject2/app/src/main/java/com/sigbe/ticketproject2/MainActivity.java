@@ -27,6 +27,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         btBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Buscar("http://ticketproject.000webhostapp.com/webservicephpticket/webservices/buscarpersona.php?email=" + email.getText() + "");
+                Buscar("http://ticketproject.000webhostapp.com/sigbewebservice/app/componentes/usuarios/list_useremail.php?email=" + email.getText() + "");
             }
         });
 
@@ -165,7 +166,37 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressWarnings("unchecked")
     private void Buscar(String URL){
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        String passwordrespaldo = password.getText().toString();
+                        try {
+                            if(passwordrespaldo.equals(response.getString("contrasena"))){
+                                Toast.makeText(MainActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
+                                iniciarActividadHomeEstudiante(response.getString("nombre"));
+                            }else{
+                                Toast.makeText(MainActivity.this, "Email/Contraseña invalida", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MainActivity.this, "Email/Contraseña invalida", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+
+       /* JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
@@ -178,8 +209,9 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
-                        contraseñabasededatos = jsonObject.getString("password");
+                        contraseñabasededatos = jsonObject.getString("contrasena");
                         nombrebase = jsonObject.getString("nombre");
+                        Toast.makeText(MainActivity.this, "ERROR" + contraseñabasededatos, Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {
                         Toast.makeText(MainActivity.this, "ERROR" + e.toString(), Toast.LENGTH_SHORT).show();
                     }
@@ -195,12 +227,20 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "ERROR DE CONEXION" , Toast.LENGTH_SHORT).show();
+                String contrasenabase = null;
+                try {
+                    JSONObject jsonbase = new JSONObject(error.getMessage());
+
+                    Toast.makeText(MainActivity.this, "ERROR DE CONEXION" + jsonbase.getString("correo") , Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //Toast.makeText(MainActivity.this, "ERROR DE CONEXION" + error.getMessage() , Toast.LENGTH_SHORT).show();
             }
         });
 
         requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonArrayRequest);*/
     }
 
 }
