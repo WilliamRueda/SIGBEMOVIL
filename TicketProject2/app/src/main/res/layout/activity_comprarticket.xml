@@ -69,14 +69,14 @@
             tools:layout_editor_absoluteY="5dp">
 
             <Button
-                android:id="@+id/buttonComprar"
+                android:id="@+id/buttonHome"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="170dp"
                 android:background="@drawable/textinicio_sesion"
-                android:foreground="@mipmap/compraticket" />
+                android:foreground="@mipmap/inicio" />
 
 
         </android.widget.RelativeLayout>
@@ -84,38 +84,92 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="234dp"
-        android:layout_marginBottom="560dp"
-        android:text="@string/textview"
+        android:layout_marginTop="15dp"
+        android:text="Comprar ticket"
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2"
-        app:layout_constraintVertical_bias="0.032" />
+        app:layout_constraintVertical_bias="0.151" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/btnGuardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="234dp"
-        android:layout_marginBottom="560dp"
-        android:text="@string/textview2"
+        android:text="Comprar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.842" />
+
+    <EditText
+        android:id="@+id/textNombre"
+        android:layout_width="154dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Nombre"
+        app:layout_constraintBottom_toTopOf="@+id/btnGuardar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.238" />
+
+    <EditText
+        android:id="@+id/textSaldo"
+        android:layout_width="168dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Saldo"
+        app:layout_constraintBottom_toTopOf="@+id/btnGuardar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textNombre"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.102" />
+
+    <EditText
+        android:id="@+id/textTipoticket"
+        android:layout_width="168dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Tipo Ticket"
+        app:layout_constraintBottom_toTopOf="@+id/btnGuardar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textCodigoest"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.56" />
+
+    <EditText
+        android:id="@+id/textCodigoest"
+        android:layout_width="155dp"
+        android:layout_height="46dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Codigo estudiante"
+        app:layout_constraintBottom_toTopOf="@+id/btnGuardar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.626" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
