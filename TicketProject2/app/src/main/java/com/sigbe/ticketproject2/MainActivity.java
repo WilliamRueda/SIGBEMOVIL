@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final long DURATION_TRANSITION = 450;
     EditText nombre,email,password;
-    Button btGuardar, btBuscar;
+    Button btBuscar;
     ImageView imageUv;
 
     private static final int DURACION= 450;
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
-        btGuardar = (Button) findViewById(R.id.btnRegistrar);
         btBuscar = (Button) findViewById(R.id.btnBuscar);
         imageUv = (ImageView) findViewById(R.id.imageviewuv);
 
@@ -83,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         email.setVisibility(View.INVISIBLE);
         password.setVisibility(View.INVISIBLE);
         btBuscar.setVisibility(View.INVISIBLE);
-        btGuardar.setVisibility(View.INVISIBLE);
 
 
         AlphaAnimation fadein = new AlphaAnimation(0.0f,1.0f);
@@ -100,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 email.setVisibility(View.VISIBLE);
                 password.setVisibility(View.VISIBLE);
                 btBuscar.setVisibility(View.VISIBLE);
-                btGuardar.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -117,14 +114,13 @@ public class MainActivity extends AppCompatActivity {
         email.startAnimation(fadein);
         password.startAnimation(fadein);
         btBuscar.startAnimation(fadein);
-        btGuardar.startAnimation(fadein);
 
-        btGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Doregister("sigbebackend.herokuapp.com/webservices/insertarpersona.php");
-            }
-        });
+//        btGuardar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Doregister("sigbebackend.herokuapp.com/webservices/insertarpersona.php");
+//            }
+//        });
 
         btBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,7 +225,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("rol", Integer.toString(usuariobuscado.getRoles()));
         intent.putExtra("identificacion", Integer.toString(usuariobuscado.getIdentificacion()));
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        finish();
     }
 
     @SuppressWarnings("unchecked")
