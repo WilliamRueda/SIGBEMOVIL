@@ -7,14 +7,19 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.ActivityOptions;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.os.SystemClock;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.Transition;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -49,6 +54,8 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     public static final long DURATION_TRANSITION = 450;
+    private static final String TAG = "LOL";
+    private static final long PERIOD = 100;
     EditText nombre,email,password;
     Button btBuscar;
     ImageView imageUv;
@@ -83,12 +90,11 @@ public class MainActivity extends AppCompatActivity {
         password.setVisibility(View.INVISIBLE);
         btBuscar.setVisibility(View.INVISIBLE);
 
-
+        //setAlarm();
         AlphaAnimation fadein = new AlphaAnimation(0.0f,1.0f);
         fadein.setDuration(DURACION);
         fadein.setStartOffset(TIEMPO_DESPUES);
         fadein.setFillAfter(true);
-
 
 
         fadein.setAnimationListener(new Animation.AnimationListener() {
@@ -125,13 +131,30 @@ public class MainActivity extends AppCompatActivity {
         btBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Buscar("http://sigbebackend.herokuapp.com/app/componentes/usuarios/list_useremail.php?email=" + email.getText() + "");
+                Buscar("http://192.168.0.11/sigbeweb/app/componentes/usuarios/list_useremail.php?email=" + email.getText() + "");
             }
         });
 
 
         transition = new Fade(Fade.OUT);
 
+    }
+
+    public void setAlarm() {
+        AlarmManager mgr =(AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+
+        //configuramos una alarma para que se haga el envio de las notificaciones sino esta creada ya
+        boolean alarmUp = (PendingIntent.getBroadcast(this, 0,
+                new Intent(this, MyReceiver.class),PendingIntent.FLAG_NO_CREATE) != null);
+            Log.i(TAG, "create an alarm");
+
+            Intent intent = new Intent(this, MyReceiver.class);
+            PendingIntent pIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            mgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    SystemClock.elapsedRealtime()+10000,
+                    PERIOD,
+                    pIntent );
     }
 
     private void requestCameraPermission() {
@@ -201,8 +224,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("apellido", usuariobuscado.getApellido());
         intent.putExtra("correo", usuariobuscado.getCorreo());
         intent.putExtra("contrasena", usuariobuscado.getPassword());
-        intent.putExtra("codigoestudiante", usuariobuscado.getCodigoestudiante());
-        intent.putExtra("saldo", usuariobuscado.getSaldo());
+        //intent.putExtra("saldo", usuariobuscado.getSaldo());
         intent.putExtra("rol", usuariobuscado.getRoles());
         intent.putExtra("identificacion", usuariobuscado.getIdentificacion());
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
@@ -220,8 +242,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("apellido", usuariobuscado.getApellido());
         intent.putExtra("correo", usuariobuscado.getCorreo());
         intent.putExtra("contrasena", usuariobuscado.getPassword());
-        intent.putExtra("codigoestudiante", Integer.toString(usuariobuscado.getCodigoestudiante()));
-        intent.putExtra("saldo", Integer.toString(usuariobuscado.getSaldo()));
+        //intent.putExtra("saldo", Integer.toString(usuariobuscado.getSaldo()));
         intent.putExtra("rol", Integer.toString(usuariobuscado.getRoles()));
         intent.putExtra("identificacion", Integer.toString(usuariobuscado.getIdentificacion()));
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
@@ -234,17 +255,17 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        //Toast.makeText(MainActivity.this, "recibido backend " + response, Toast.LENGTH_SHORT).show();
                         String passwordrespaldo = password.getText().toString();
                         Usuario usuariobuscado = new Usuario();
 
                         try {
                             usuariobuscado.setNombre(response.getString("nombre"));
                             usuariobuscado.setApellido(response.getString("apellido"));
-                            usuariobuscado.setCodigoestudiante(Integer.parseInt(response.getString("codigoestudiante")));
                             usuariobuscado.setCorreo(response.getString("correo"));
                             usuariobuscado.setIdentificacion(Integer.parseInt(response.getString("identificacion")));
                             usuariobuscado.setRoles(Integer.parseInt(response.getString("roles")));
-                            usuariobuscado.setSaldo(Integer.parseInt(response.getString("saldo")));
+                            //usuariobuscado.setSaldo(Integer.parseInt(response.getString("saldo")));
                             usuariobuscado.setPassword(response.getString("contrasena"));
                             if(passwordrespaldo.equals(response.getString("contrasena"))){
                                 Toast.makeText(MainActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();

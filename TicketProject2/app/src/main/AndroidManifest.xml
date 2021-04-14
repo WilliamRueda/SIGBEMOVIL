@@ -21,20 +21,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme2"
         android:usesCleartextTraffic="true">
+
+        <activity android:name=".MenuInfoEst"></activity>
+
         <activity android:name=".Comprarticket" />
         <activity
             android:name=".HomeRestaurante"
             android:label="@string/title_activity_home_restaurante"
             android:theme="@style/AppTheme2.NoActionBar" />
         <activity android:name=".HomeEstudiante" />
-        <activity android:name=".Codigoqr"/>
+        <activity android:name=".Codigoqr" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".MyReceiver"></receiver>
     </application>
 
 </manifest>

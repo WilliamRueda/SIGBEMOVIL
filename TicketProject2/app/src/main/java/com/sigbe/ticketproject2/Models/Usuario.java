@@ -5,7 +5,6 @@ public class Usuario {
     private int identificacion;
     private String nombre;
     private String apellido;
-    private int codigoestudiante;
     private String correo;
     private String password;
     private int saldo;
@@ -35,13 +34,7 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public int getCodigoestudiante() {
-        return codigoestudiante;
-    }
 
-    public void setCodigoestudiante(int codigoestudiante) {
-        this.codigoestudiante = codigoestudiante;
-    }
 
     public String getCorreo() {
         return correo;

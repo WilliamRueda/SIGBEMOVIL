@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 
@@ -34,7 +33,7 @@ public class Codigoqr extends AppCompatActivity {
         codigosl = bundle.getInt("codigo");
         qrImage = (ImageView) findViewById(R.id.imageCodigoQR);
         btGuardar = (Button) findViewById(R.id.btGuardarCodigo);
-        btnHome = (Button) findViewById(R.id.buttonHome);
+        btnHome = (Button) findViewById(R.id.buttonQR);
         btnSalir = (Button) findViewById(R.id.buttonSalir);
 
         WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);

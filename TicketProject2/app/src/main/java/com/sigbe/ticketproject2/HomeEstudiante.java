@@ -82,7 +82,7 @@ public class HomeEstudiante extends AppCompatActivity {
             }
         });
 
-        buscarTicketsById("http://sigbebackend.herokuapp.com/app/componentes/Tickets/list_tickets.php?identificacion=" + bundle.getInt("identificacion"));
+        buscarTicketsById("http://192.168.0.11/sigbeweb/app/componentes/Tickets/list_tickets.php?identificacion=" + bundle.getInt("identificacion"));
 
 
         }
@@ -99,7 +99,6 @@ public class HomeEstudiante extends AppCompatActivity {
         intent.putExtra("apellido", bundle.getString("apellido"));
         intent.putExtra("correo", bundle.getString("correo"));
         intent.putExtra("contrasena", bundle.getString("contrasena"));
-        intent.putExtra("codigoestudiante", bundle.getInt("codigoestudiante"));
         intent.putExtra("saldo", bundle.getInt("saldo"));
         intent.putExtra("rol", bundle.getInt("rol"));
         intent.putExtra("identificacion", bundle.getInt("identificacion"));
@@ -120,15 +119,16 @@ public class HomeEstudiante extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
+                            Toast.makeText(HomeEstudiante.this,"TEXTO A LLEGAR, :" + response, Toast.LENGTH_SHORT).show();
                             tamanoArreglo = response.length();
                             arregloTicketsbuscados = new String[tamanoArreglo][4];
                             for(int i = 0;i< response.length();i++){
 
                                     JSONObject json = response.getJSONObject(i);
-                                    JSONObject fechajson = json.getJSONObject("fecha_compra");
+//                                    JSONObject fechajson = json.getJSONObject("fecha_compra");
                                     arregloTicketsbuscados[i][0] = json.getString("consecutivoticket");
-                                    arregloTicketsbuscados[i][1] = fechajson.getString("date");
-                                    arregloTicketsbuscados[i][2] = json.getString("estado");
+                                    arregloTicketsbuscados[i][1] = json.getString("fecha_compra");
+                                    arregloTicketsbuscados[i][2] = json.getString("estadoticket");
                                     arregloTicketsbuscados[i][3] = json.getString("tipoticket");
                             }
                         } catch (JSONException e) {

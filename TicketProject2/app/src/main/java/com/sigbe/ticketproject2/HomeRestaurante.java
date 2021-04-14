@@ -1,5 +1,7 @@
 package com.sigbe.ticketproject2;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.volley.Request;
@@ -72,8 +74,12 @@ public class HomeRestaurante extends AppCompatActivity implements ZXingScannerVi
         Toast.makeText(HomeRestaurante.this, "CODIGO DETECTADO " + rawResult.getText(), Toast.LENGTH_SHORT).show();
         // If you would like to resume scanning, call this method below:
         codigoEscaneado = rawResult.getText();
-        actualizarEstadoTicket("http://sigbebackend.herokuapp.com/app/componentes/Tickets/actualizarEstado.php");
-        mScannerView.resumeCameraPreview(this);
+        actualizarEstadoTicket("http://192.168.0.11/sigbeweb/app/componentes/Tickets/actualizarEstado.php");
+        mScannerView.stopCamera();
+        finishAffinity();
+        Intent intent = new Intent (HomeRestaurante.this, MenuInfoEst.class);
+        intent.putExtra("codigoEscaneado",codigoEscaneado);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     @SuppressWarnings("unchecked")
